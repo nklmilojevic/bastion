@@ -1,6 +1,3 @@
-# OCI image for the bastion pod: a rootless sshd jump box carrying the same
-# toolchain as the home repo's dev shell, plus Claude Code with the Telegram
-# channel plugin kept alive in tmux (scripts/claude-channel.sh).
 {
   lib,
   dockerTools,
@@ -48,8 +45,6 @@ let
   home = "/config";
   moshPortRange = "60001:60005";
 
-  # writeShellApplication supplies the shebang and `set -o errexit/nounset/pipefail`
-  # and runs shellcheck at build time, so the script files carry neither.
   entrypoint = writeShellApplication {
     name = "bastion-entrypoint";
     runtimeInputs = [
@@ -58,7 +53,7 @@ let
       git
       github-cli
       tmux
-      glibc.bin # getent
+      glibc.bin
       claudeChannel
     ];
     text = builtins.replaceStrings [ "@sftpServer@" ] [ "${openssh}/libexec/sftp-server" ] (
@@ -75,7 +70,6 @@ let
       bun
       claude-code
     ];
-    # No errexit: the loop must survive a failing `claude` and restart it.
     bashOptions = [
       "nounset"
       "pipefail"
@@ -83,8 +77,6 @@ let
     text = builtins.readFile ./scripts/claude-channel.sh;
   };
 
-  # Shadows mosh-server on PATH (mosh itself is deliberately not in `contents`)
-  # so the UDP range matches what the LoadBalancer Service exposes.
   moshServer = writeShellApplication {
     name = "mosh-server";
     text =
@@ -135,7 +127,6 @@ let
 in
 dockerTools.streamLayeredImage {
   name = "ghcr.io/nklmilojevic/bastion";
-  # Placeholder only: the Image workflow re-tags with the release version on push.
   tag = rev;
 
   contents = toolchain ++ [
@@ -175,8 +166,6 @@ dockerTools.streamLayeredImage {
       "--"
       "${entrypoint}/bin/bastion-entrypoint"
     ];
-    # sshd hands login shells a scrubbed environment; the entrypoint forwards
-    # the relevant subset of these through PermitUserEnvironment.
     Env = [
       "PATH=/bin"
       "HOME=${home}"

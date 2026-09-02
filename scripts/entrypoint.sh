@@ -2,8 +2,6 @@ ssh_dir="${HOME}/.ssh"
 mkdir -p "${ssh_dir}"
 chmod 700 "${ssh_dir}"
 
-# Authorized keys come from the environment (public keys are not secret).
-# Supports a single key in PUBLIC_KEY or a file path in PUBLIC_KEY_FILE.
 if [[ -n "${PUBLIC_KEY:-}" ]]; then
     printf '%s\n' "${PUBLIC_KEY}" >"${ssh_dir}/authorized_keys"
 elif [[ -n "${PUBLIC_KEY_FILE:-}" && -f "${PUBLIC_KEY_FILE}" ]]; then
@@ -11,25 +9,16 @@ elif [[ -n "${PUBLIC_KEY_FILE:-}" && -f "${PUBLIC_KEY_FILE}" ]]; then
 fi
 [[ -f "${ssh_dir}/authorized_keys" ]] && chmod 600 "${ssh_dir}/authorized_keys"
 
-# Persist the host key on the mounted volume so it survives restarts
-# (no host-key-changed warnings on the client).
 host_key="${ssh_dir}/ssh_host_ed25519_key"
 if [[ ! -f "${host_key}" ]]; then
     ssh-keygen -t ed25519 -f "${host_key}" -N "" -q
 fi
 
-# /etc/passwd is baked into the image (uid 1000 = ${USER_NAME}); sshd cannot
-# serve a uid it cannot resolve, so fail loudly rather than mysteriously.
 if ! getent passwd "$(id -u)" >/dev/null 2>&1; then
     echo "uid $(id -u) has no /etc/passwd entry; run the container as uid 1000" >&2
     exit 1
 fi
 
-# sshd starts login shells with a scrubbed environment, so the container env
-# (in-cluster kube API address, TALOSCONFIG, tokens, Claude and glibc settings)
-# would be missing from SSH sessions. Hand a curated subset over via
-# PermitUserEnvironment. The file lives on tmpfs (not the backed-up volume);
-# ~/.ssh/environment is only a symlink to it.
 env_file="/tmp/ssh-environment"
 : >"${env_file}"
 chmod 600 "${env_file}"
@@ -46,10 +35,6 @@ for var in PATH TZ TZDIR LANG LOCALE_ARCHIVE TERMINFO_DIRS HOME \
 done
 ln -sfn "${env_file}" "${ssh_dir}/environment"
 
-# In-cluster credentials as a regular kubeconfig, so kubectl, flux and sofka
-# all see a named context instead of each falling back to bare in-cluster
-# detection. Nothing secret is written: the token and CA are referenced by
-# path, and the projected token rotates underneath.
 sa_dir="/var/run/secrets/kubernetes.io/serviceaccount"
 if [[ -n "${KUBERNETES_SERVICE_HOST:-}" && -f "${sa_dir}/token" ]]; then
     context="${KUBE_CONTEXT_NAME:-in-cluster}"
@@ -77,7 +62,6 @@ KUBECONFIG
     chmod 600 "${HOME}/.kube/config"
 fi
 
-# First boot: clone the GitOps repo into the home volume.
 if [[ -n "${GIT_CLONE_URL:-}" ]]; then
     repo_name="$(basename "${GIT_CLONE_URL%.git}")"
     repo_dir="${HOME}/${GIT_CLONE_DIR:-${repo_name}}"
@@ -87,21 +71,14 @@ if [[ -n "${GIT_CLONE_URL:-}" ]]; then
 fi
 [[ -n "${GIT_USER_NAME:-}" ]] && git config --global user.name "${GIT_USER_NAME}"
 [[ -n "${GIT_USER_EMAIL:-}" ]] && git config --global user.email "${GIT_USER_EMAIL}"
-# gh acts as git's credential helper for github.com when GH_TOKEN is set.
 if [[ -n "${GH_TOKEN:-}" ]]; then
     gh auth setup-git --hostname github.com >/dev/null 2>&1 || true
 fi
 
-# Keep a Claude Code session with the Telegram channel alive in tmux.
-# Attach over SSH with `tmux attach -t claude`.
 if [[ "${CLAUDE_CHANNEL_ENABLED:-true}" == "true" ]]; then
     tmux new-session -d -s claude -c "${HOME}" claude-channel
 fi
 
-# sshd runs entirely rootless: it only ever serves the user it runs as
-# (no setuid needed), listens on an unprivileged port, and keeps all state
-# under the user-writable home. StrictModes is relaxed because the volume is
-# owned via fsGroup rather than strictly by the user.
 exec sshd -D -e \
     -p "${PORT:-2222}" \
     -h "${host_key}" \
