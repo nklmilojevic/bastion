@@ -30,7 +30,8 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
 
       - name: Build image
-        run: nix build --print-build-logs .#image
+        # --accept-flake-config picks up the sofka binary cache declared in flake.nix
+        run: nix build --accept-flake-config --print-build-logs .#image
 
       # Only releases publish an image, tagged with the release version and
       # nothing else: consumers pin a version (Renovate bumps it), never a

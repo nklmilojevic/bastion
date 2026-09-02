@@ -13,10 +13,17 @@
       url = "github:nklmilojevic/talosctl-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sofka = {
-      url = "github:nklmilojevic/sofka";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # No nixpkgs follows here on purpose: sofka's release workflow warms
+    # nkl-sofka.cachix.org with the derivation built against its own pinned
+    # nixpkgs, and overriding it would force a from-source Rust build.
+    sofka.url = "github:nklmilojevic/sofka";
+  };
+
+  nixConfig = {
+    extra-substituters = [ "https://nkl-sofka.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nkl-sofka.cachix.org-1:hLg9frFNJynrxe7SSBb/p6pbawlpZmG10bw+wLsTufw="
+    ];
   };
 
   outputs =
@@ -37,10 +44,14 @@
         "aarch64-linux"
       ];
 
+      # sofka is deliberately NOT applied as an overlay: its overlay re-evaluates
+      # package.nix against this flake's nixpkgs, which yields a different
+      # derivation from the one its release workflow pushes to
+      # nkl-sofka.cachix.org. Taking `sofka.packages.<system>.default` keeps the
+      # cached build (see the image call below).
       overlays = [
         claude-code-overlay.overlays.default
         talosctl.overlays.default
-        sofka.overlays.default
       ];
 
       forAllSystems =
@@ -60,6 +71,7 @@
         pkgs:
         let
           image = pkgs.callPackage ./image.nix {
+            sofka = sofka.packages.${pkgs.stdenv.hostPlatform.system}.default;
             rev = self.shortRev or self.dirtyShortRev or "dev";
           };
         in
