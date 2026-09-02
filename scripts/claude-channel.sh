@@ -27,7 +27,8 @@ fi
 project_dir="${config_dir}/projects/${workdir//\//-}"
 while true; do
     args=(--channels "plugin:${plugin}" --permission-mode "${CLAUDE_PERMISSION_MODE:-auto}" --name bastion)
-    if compgen -G "${project_dir}/*.jsonl" >/dev/null; then
+    transcripts=("${project_dir}"/*.jsonl)
+    if [[ -e "${transcripts[0]}" ]]; then
         args+=(--continue)
     fi
     claude "${args[@]}"
