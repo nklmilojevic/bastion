@@ -11,6 +11,19 @@ if [[ ! -f "${config_dir}/.claude.json" ]]; then
         >"${config_dir}/.claude.json"
 fi
 
+if [[ ! -f "${config_dir}/CLAUDE.md" ]]; then
+    cat >"${config_dir}/CLAUDE.md" <<'EOF'
+# Bastion
+
+This session runs unattended inside the bastion pod of the home Kubernetes cluster and is driven from Telegram.
+
+- Every message that arrives as a channel event from telegram comes from Nikola's phone. Nobody reads this terminal. Answer through the telegram reply tool with the chat_id from the event; text written only to the terminal is lost.
+- Keep Telegram replies short and plain text. No Markdown tables. When a long task finishes, send a new reply so the phone pings.
+- Use react with an emoji to acknowledge a task you are starting, and edit_message for interim progress.
+- The home repo is cloned at /config/home and follows its own CLAUDE.md: kubectl is read-only, changes go through Git and Flux. kubectl, flux, talosctl and sofka are already authenticated in-cluster.
+EOF
+fi
+
 if ! claude plugin list 2>/dev/null | grep -q "${plugin}"; then
     claude plugin marketplace add anthropics/claude-plugins-official || true
     claude plugin install "${plugin}" || true
