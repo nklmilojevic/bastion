@@ -14,7 +14,7 @@ if [[ ! -f "${host_key}" ]]; then
     ssh-keygen -t ed25519 -f "${host_key}" -N "" -q
 fi
 
-if ! getent passwd "$(id -u)" >/dev/null 2>&1; then
+if ! id -un >/dev/null 2>&1; then
     echo "uid $(id -u) has no /etc/passwd entry; run the container as uid 1000" >&2
     exit 1
 fi
@@ -79,7 +79,7 @@ if [[ "${CLAUDE_CHANNEL_ENABLED:-true}" == "true" ]]; then
     tmux new-session -d -s claude -c "${HOME}" claude-channel
 fi
 
-exec sshd -D -e \
+exec @sshd@ -D -e \
     -p "${PORT:-2222}" \
     -h "${host_key}" \
     -o "PidFile=${ssh_dir}/sshd.pid" \

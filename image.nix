@@ -53,12 +53,13 @@ let
       git
       github-cli
       tmux
-      glibc.bin
       claudeChannel
     ];
-    text = builtins.replaceStrings [ "@sftpServer@" ] [ "${openssh}/libexec/sftp-server" ] (
-      builtins.readFile ./scripts/entrypoint.sh
-    );
+    text =
+      builtins.replaceStrings
+        [ "@sshd@" "@sftpServer@" ]
+        [ "${openssh}/bin/sshd" "${openssh}/libexec/sftp-server" ]
+        (builtins.readFile ./scripts/entrypoint.sh);
   };
 
   claudeChannel = writeShellApplication {
