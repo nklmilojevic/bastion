@@ -45,6 +45,10 @@ let
   home = "/config";
   moshPortRange = "60001:60005";
 
+  claude = claude-code.overrideAttrs (_: {
+    postFixup = "";
+  });
+
   entrypoint = writeShellApplication {
     name = "bastion-entrypoint";
     runtimeInputs = [
@@ -69,7 +73,7 @@ let
       jq
       git
       bun
-      claude-code
+      claude
     ];
     bashOptions = [
       "nounset"
@@ -117,7 +121,7 @@ let
     stern
     talosctl
     sofka
-    claude-code
+    claude
     bun
     git
     github-cli
