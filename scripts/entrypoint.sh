@@ -19,10 +19,14 @@ if ! id -un >/dev/null 2>&1; then
     exit 1
 fi
 
+export TMPDIR="/tmp/${USER_NAME}"
+mkdir -p "${TMPDIR}"
+chmod 700 "${TMPDIR}"
+
 env_file="/tmp/ssh-environment"
 : >"${env_file}"
 chmod 600 "${env_file}"
-for var in PATH TZ TZDIR LANG LOCALE_ARCHIVE TERMINFO_DIRS HOME \
+for var in PATH TZ TZDIR LANG LOCALE_ARCHIVE TERMINFO_DIRS HOME TMPDIR \
     SSL_CERT_FILE NIX_SSL_CERT_FILE GIT_SSL_CAINFO \
     KUBERNETES_SERVICE_HOST KUBERNETES_SERVICE_PORT KUBERNETES_SERVICE_PORT_HTTPS \
     TALOSCONFIG GH_TOKEN GIT_USER_NAME GIT_USER_EMAIL \
