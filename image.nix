@@ -8,13 +8,14 @@
   findutils,
   gnugrep,
   gnused,
+  gnutar,
+  gzip,
   gawk,
   less,
   curl,
   cacert,
   tzdata,
   iana-etc,
-  glibc,
   glibcLocalesUtf8,
   ncurses,
   openssh,
@@ -26,6 +27,7 @@
   jq,
   yq-go,
   ripgrep,
+  fd,
   catatonit,
   kubectl,
   fluxcd,
@@ -133,6 +135,7 @@ let
     jq
     yq-go
     ripgrep
+    fd
   ];
 in
 dockerTools.streamLayeredImage {
@@ -149,6 +152,8 @@ dockerTools.streamLayeredImage {
     findutils
     gnugrep
     gnused
+    gnutar
+    gzip
     gawk
     less
     curl
