@@ -93,7 +93,8 @@ let
   };
 
   etc = runCommand "bastion-etc" { } ''
-    mkdir -p $out/etc/ssh $out/var/empty
+    mkdir -p $out/etc/ssh $out/etc/pi/extensions $out/var/empty
+    cp ${./scripts/litellm-session.ts} $out/etc/pi/extensions/litellm-session.ts
     cat >$out/etc/passwd <<EOF
     root:x:0:0:root:/root:${bash}/bin/bash
     sshd:x:74:74:sshd privsep:/var/empty:/bin/false

@@ -71,6 +71,9 @@ fi
 session_dir="${agent_dir}/sessions/--${workdir//\//-}--"
 while true; do
     args=(--name bastion)
+    if [[ -f /etc/pi/extensions/litellm-session.ts ]]; then
+        args+=(--extension /etc/pi/extensions/litellm-session.ts)
+    fi
     if [[ -n "${BASTION_MODEL:-}" ]]; then
         args+=(--model "${BASTION_MODEL}")
     fi
