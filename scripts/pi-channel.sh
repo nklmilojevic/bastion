@@ -52,6 +52,13 @@ for pkg in "${wanted[@]}"; do
     fi
 done
 
+mcp_config="${HOME}/.config/mcp/mcp.json"
+mcp_url="${BASTION_MCP_URL:-https://mcp.nikola.wtf/mcp}"
+if [[ -n "${mcp_url}" && ! -f "${mcp_config}" ]]; then
+    mkdir -p "$(dirname "${mcp_config}")"
+    jq -n --arg url "${mcp_url}" '{mcpServers: {home: {url: $url, lifecycle: "lazy"}}}' >"${mcp_config}"
+fi
+
 telegram_config="${agent_dir}/telegram.json"
 if [[ -n "${TELEGRAM_BOT_TOKEN:-}" && ! -f "${telegram_config}" ]]; then
     # shellcheck disable=SC2016
