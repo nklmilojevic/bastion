@@ -1,7 +1,7 @@
 agent_dir="${PI_CODING_AGENT_DIR:-${HOME}/.pi/agent}"
 workdir="${BASTION_WORKDIR:-${HOME}}"
 telegram_package="npm:@llblab/pi-telegram"
-default_packages="npm:@odinlayer/pi-provider-litellm"
+default_packages="npm:@odinlayer/pi-provider-litellm,npm:pi-meridian-extension"
 default_packages+=",npm:pi-subagents,npm:pi-web-access,npm:pi-mcp-adapter,npm:pi-lens"
 default_packages+=",npm:pi-background-tasks,npm:pi-hermes-memory,npm:pi-simplify"
 default_packages+=",npm:@juicesharp/rpiv-todo,npm:@juicesharp/rpiv-ask-user-question"
@@ -71,9 +71,6 @@ fi
 session_dir="${agent_dir}/sessions/--${workdir//\//-}--"
 while true; do
     args=(--name bastion)
-    if [[ -f /etc/pi/extensions/litellm-session.ts ]]; then
-        args+=(--extension /etc/pi/extensions/litellm-session.ts)
-    fi
     if [[ -n "${BASTION_MODEL:-}" ]]; then
         args+=(--model "${BASTION_MODEL}")
     fi

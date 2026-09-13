@@ -47,6 +47,7 @@ let
   home = "/config";
   moshPortRange = "60001:60005";
   litellmBaseUrl = "http://litellm.ai.svc.cluster.local:4000";
+  meridianBaseUrl = "http://meridian.ai.svc.cluster.local:3456";
 
   entrypoint = writeShellApplication {
     name = "bastion-entrypoint";
@@ -93,8 +94,7 @@ let
   };
 
   etc = runCommand "bastion-etc" { } ''
-    mkdir -p $out/etc/ssh $out/etc/pi/extensions $out/var/empty
-    cp ${./scripts/litellm-session.ts} $out/etc/pi/extensions/litellm-session.ts
+    mkdir -p $out/etc/ssh $out/var/empty
     cat >$out/etc/passwd <<EOF
     root:x:0:0:root:/root:${bash}/bin/bash
     sshd:x:74:74:sshd privsep:/var/empty:/bin/false
@@ -192,6 +192,7 @@ dockerTools.streamLayeredImage {
       "PI_CODING_AGENT_DIR=${home}/.pi/agent"
       "PI_SKIP_VERSION_CHECK=1"
       "LITELLM_BASE_URL=${litellmBaseUrl}"
+      "MERIDIAN_BASE_URL=${meridianBaseUrl}"
       "MOSH_PORT_RANGE=${moshPortRange}"
     ];
     ExposedPorts = {
