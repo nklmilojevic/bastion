@@ -33,8 +33,9 @@
   kubernetes-helm,
   just,
   stern,
+  pi,
+  nodejs,
   claude-code,
-  bun,
   sofka,
   talosctl,
   rev,
@@ -57,7 +58,7 @@ let
       git
       github-cli
       tmux
-      claudeChannel
+      piChannel
     ];
     text =
       builtins.replaceStrings
@@ -66,20 +67,23 @@ let
         (builtins.readFile ./scripts/entrypoint.sh);
   };
 
-  claudeChannel = writeShellApplication {
-    name = "claude-channel";
+  piChannel = writeShellApplication {
+    name = "pi-channel";
     runtimeInputs = [
       coreutils
+      gnugrep
       jq
       git
-      bun
+      tmux
+      nodejs
+      pi
       claude
     ];
     bashOptions = [
       "nounset"
       "pipefail"
     ];
-    text = builtins.readFile ./scripts/claude-channel.sh;
+    text = builtins.readFile ./scripts/pi-channel.sh;
   };
 
   moshServer = writeShellApplication {
@@ -121,8 +125,9 @@ let
     stern
     talosctl
     sofka
+    pi
+    nodejs
     claude
-    bun
     git
     github-cli
     jq
@@ -153,7 +158,7 @@ dockerTools.streamLayeredImage {
     ncurses
     catatonit
     entrypoint
-    claudeChannel
+    piChannel
     etc
   ];
 
@@ -184,6 +189,8 @@ dockerTools.streamLayeredImage {
       "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
+      "PI_CODING_AGENT_DIR=${home}/.pi/agent"
+      "PI_SKIP_VERSION_CHECK=1"
       "CLAUDE_CONFIG_DIR=${home}/.claude"
       "DISABLE_AUTOUPDATER=1"
       "USE_BUILTIN_RIPGREP=0"
