@@ -1,8 +1,7 @@
 agent_dir="${PI_CODING_AGENT_DIR:-${HOME}/.pi/agent}"
 workdir="${BASTION_WORKDIR:-${HOME}}"
 telegram_package="npm:@llblab/pi-telegram"
-default_packages="git:github.com/markschroedr/pi-claude-bridge"
-default_packages+=",npm:@ssweens/pi-vertex"
+default_packages="npm:@odinlayer/pi-provider-litellm"
 default_packages+=",npm:pi-subagents,npm:pi-web-access,npm:pi-mcp-adapter,npm:pi-lens"
 default_packages+=",npm:pi-background-tasks,npm:pi-hermes-memory,npm:pi-simplify"
 default_packages+=",npm:@juicesharp/rpiv-todo,npm:@juicesharp/rpiv-ask-user-question"
@@ -10,7 +9,7 @@ default_packages+=",npm:@narumitw/pi-plan-mode,npm:@narumitw/pi-goal"
 default_packages+=",npm:pi-powerline-footer,npm:pi-markdown-preview"
 default_packages+=",git:github.com/earendil-works/pi-review"
 packages="${telegram_package},${BASTION_PI_PACKAGES:-${default_packages}}"
-default_model="openai-codex/gpt-5.6-sol"
+default_model="litellm/chatgpt/gpt-5.6-sol"
 mkdir -p "${agent_dir}"
 cd "${workdir}" 2>/dev/null || cd "${HOME}" || exit 1
 workdir="$(pwd)"
@@ -35,12 +34,6 @@ This session runs unattended inside the bastion pod of the home Kubernetes clust
 - Keep replies short and plain. No Markdown tables. Long tasks should end with a clear one-line summary so the phone notification is useful on its own.
 - The home repo is cloned at /config/home and follows its own AGENTS.md: kubectl is read-only, changes go through Git and Flux. kubectl, flux, talosctl and sofka are already authenticated in-cluster.
 EOF
-fi
-
-bridge_config="${agent_dir}/claude-bridge.json"
-if [[ ! -f "${bridge_config}" ]] && command -v claude >/dev/null; then
-    jq -n --arg claude "$(command -v claude)" --arg plan "${BASTION_CLAUDE_PLAN:-max}" \
-        '{provider: {plan: $plan, pathToClaudeCodeExecutable: $claude}}' >"${bridge_config}"
 fi
 
 IFS=',' read -r -a wanted <<<"${packages}"

@@ -7,10 +7,6 @@
       url = "github:nklmilojevic/pi-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code-overlay = {
-      url = "github:nklmilojevic/claude-code-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     talosctl = {
       url = "github:nklmilojevic/talosctl-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +26,6 @@
       self,
       nixpkgs,
       pi-flake,
-      claude-code-overlay,
       talosctl,
       sofka,
     }:
@@ -44,21 +39,10 @@
 
       overlays = [
         pi-flake.overlays.default
-        claude-code-overlay.overlays.default
         talosctl.overlays.default
       ];
 
-      forAllSystems =
-        f:
-        lib.genAttrs systems (
-          system:
-          f (
-            import nixpkgs {
-              inherit system overlays;
-              config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "claude" ];
-            }
-          )
-        );
+      forAllSystems = f: lib.genAttrs systems (system: f (import nixpkgs { inherit system overlays; }));
     in
     {
       packages = forAllSystems (

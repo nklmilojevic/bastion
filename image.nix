@@ -37,7 +37,6 @@
   stern,
   pi,
   nodejs,
-  claude-code,
   sofka,
   talosctl,
   rev,
@@ -47,10 +46,7 @@ let
   uid = "1000";
   home = "/config";
   moshPortRange = "60001:60005";
-
-  claude = claude-code.overrideAttrs (_: {
-    postFixup = "";
-  });
+  litellmBaseUrl = "http://litellm.ai.svc.cluster.local:4000";
 
   entrypoint = writeShellApplication {
     name = "bastion-entrypoint";
@@ -79,7 +75,6 @@ let
       tmux
       nodejs
       pi
-      claude
     ];
     bashOptions = [
       "nounset"
@@ -129,7 +124,6 @@ let
     sofka
     pi
     nodejs
-    claude
     git
     github-cli
     jq
@@ -196,9 +190,7 @@ dockerTools.streamLayeredImage {
       "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
       "PI_CODING_AGENT_DIR=${home}/.pi/agent"
       "PI_SKIP_VERSION_CHECK=1"
-      "CLAUDE_CONFIG_DIR=${home}/.claude"
-      "DISABLE_AUTOUPDATER=1"
-      "USE_BUILTIN_RIPGREP=0"
+      "LITELLM_BASE_URL=${litellmBaseUrl}"
       "MOSH_PORT_RANGE=${moshPortRange}"
     ];
     ExposedPorts = {
