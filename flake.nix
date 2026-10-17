@@ -1,73 +1,28 @@
 {
   description = "bastion - SSH jump box and Pi Telegram agent for the home cluster";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    pi-flake = {
-      url = "github:nklmilojevic/pi-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    talosctl = {
-      url = "github:nklmilojevic/talosctl-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sofka.url = "github:nklmilojevic/sofka";
-    thurm.url = "github:nklmilojevic/thurm";
-  };
-
-  nixConfig = {
-    extra-substituters = [ "https://nkl-sofka.cachix.org" ];
-    extra-trusted-public-keys = [
-      "nkl-sofka.cachix.org-1:hLg9frFNJynrxe7SSBb/p6pbawlpZmG10bw+wLsTufw="
-    ];
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      pi-flake,
-      talosctl,
-      sofka,
-      thurm,
-    }:
+    { nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "aarch64-darwin"
       ];
 
-      overlays = [
-        pi-flake.overlays.default
-        talosctl.overlays.default
-      ];
-
-      forAllSystems = f: lib.genAttrs systems (system: f (import nixpkgs { inherit system overlays; }));
+      forAllSystems = f: lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      packages = forAllSystems (
-        pkgs:
-        let
-          image = pkgs.callPackage ./image.nix {
-            sofka = sofka.packages.${pkgs.stdenv.hostPlatform.system}.default;
-            thurm = thurm.packages.${pkgs.stdenv.hostPlatform.system}.thurm;
-            rev = self.shortRev or self.dirtyShortRev or "dev";
-          };
-        in
-        {
-          default = image;
-          inherit image;
-        }
-      );
-
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            hadolint
             nixfmt
             shellcheck
-            skopeo
             zizmor
           ];
         };
