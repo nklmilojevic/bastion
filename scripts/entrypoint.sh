@@ -27,7 +27,7 @@ env_file="/tmp/ssh-environment"
 : >"${env_file}"
 chmod 600 "${env_file}"
 passthrough='^(PATH|TZ|TZDIR|LANG|LOCALE_ARCHIVE|TERMINFO_DIRS|HOME|TMPDIR|SSL_CERT_FILE|NIX_SSL_CERT_FILE|GIT_SSL_CAINFO|KUBERNETES_SERVICE_HOST|KUBERNETES_SERVICE_PORT|KUBERNETES_SERVICE_PORT_HTTPS|TALOSCONFIG|GH_TOKEN|GIT_USER_NAME|GIT_USER_EMAIL|MOSH_PORT_RANGE)$'
-passthrough+='|^(PI|BASTION|TELEGRAM|LITELLM)_'
+passthrough+='|^(PI|BASTION|TELEGRAM|LITELLM|THURM)_'
 passthrough+='|_API_KEY$|_TOKEN$|_BASE_URL$'
 while IFS= read -r -d '' entry; do
   var="${entry%%=*}"
@@ -79,6 +79,15 @@ fi
 
 if [[ "${BASTION_AGENT_ENABLED:-true}" == "true" ]]; then
   tmux new-session -d -s pi -c "${HOME}" pi-channel
+fi
+
+thurmd --daemonize
+if [[ "${BASTION_THURM_TAILSCALE:-false}" == "true" ]]; then
+  tailscale_args=(--hostname "${BASTION_THURM_HOSTNAME:-bastion}")
+  if [[ -n "${THURM_TAILSCALE_AUTH_KEY_FILE:-}" ]]; then
+    tailscale_args+=(--auth-key-file "${THURM_TAILSCALE_AUTH_KEY_FILE}")
+  fi
+  thurm tailscale on "${tailscale_args[@]}" || echo "thurm: serving over Tailscale failed" >&2
 fi
 
 exec @sshd@ -D -e \
