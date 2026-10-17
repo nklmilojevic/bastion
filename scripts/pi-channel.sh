@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -o nounset -o pipefail
+
 agent_dir="${PI_CODING_AGENT_DIR:-${HOME}/.pi/agent}"
 workdir="${BASTION_WORKDIR:-${HOME}}"
 telegram_package="npm:@llblab/pi-telegram"

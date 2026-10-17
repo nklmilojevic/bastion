@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -o errexit -o nounset -o pipefail
+
 ssh_dir="${HOME}/.ssh"
 mkdir -p "${ssh_dir}"
 chmod 700 "${ssh_dir}"
@@ -90,7 +93,7 @@ if [[ "${BASTION_THURM_TAILSCALE:-false}" == "true" ]]; then
   thurm tailscale on "${tailscale_args[@]}" || echo "thurm: serving over Tailscale failed" >&2
 fi
 
-exec @sshd@ -D -e \
+exec /usr/sbin/sshd -D -e \
   -p "${PORT:-2222}" \
   -h "${host_key}" \
   -o "PidFile=${ssh_dir}/sshd.pid" \
@@ -99,4 +102,4 @@ exec @sshd@ -D -e \
   -o "AuthorizedKeysFile=${ssh_dir}/authorized_keys" \
   -o "PermitUserEnvironment=yes" \
   -o "StrictModes=no" \
-  -o "Subsystem=sftp @sftpServer@"
+  -o "Subsystem=sftp /usr/lib/openssh/sftp-server"

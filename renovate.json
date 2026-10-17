@@ -18,6 +18,10 @@
     {
       "matchManagers": ["nix"],
       "groupName": "nix dependencies"
+    },
+    {
+      "matchManagers": ["mise"],
+      "groupName": "mise tools"
     }
   ]
 }
