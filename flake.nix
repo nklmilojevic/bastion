@@ -12,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sofka.url = "github:nklmilojevic/sofka";
-    thurm.url = "github:nklmilojevic/thurm/feat/nix-tailnet-helper";
+    thurm.url = "github:nklmilojevic/thurm";
   };
 
   nixConfig = {
