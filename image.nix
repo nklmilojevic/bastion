@@ -39,6 +39,7 @@
   nodejs,
   sofka,
   talosctl,
+  thurm,
   rev,
 }:
 let
@@ -57,6 +58,7 @@ let
       git
       github-cli
       tmux
+      thurm
       piChannel
     ];
     text =
@@ -123,6 +125,7 @@ let
     stern
     talosctl
     sofka
+    thurm
     pi
     nodejs
     git
@@ -194,6 +197,7 @@ dockerTools.streamLayeredImage {
       "LITELLM_BASE_URL=${litellmBaseUrl}"
       "MERIDIAN_BASE_URL=${meridianBaseUrl}"
       "MOSH_PORT_RANGE=${moshPortRange}"
+      "THURM_TAILNET=${thurm}/bin/thurm-tailnet"
     ];
     ExposedPorts = {
       "2222/tcp" = { };

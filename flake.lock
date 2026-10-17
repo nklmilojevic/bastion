@@ -120,6 +120,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1792116957,
+        "narHash": "sha256-EjZqHKObBfIOeHZnMRVV87HB3pPq/WBkmRJWyFxmZu8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f20cd90e28fe0403873f473b29e42662cd86e8c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pi-flake": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -146,7 +162,29 @@
         "nixpkgs": "nixpkgs",
         "pi-flake": "pi-flake",
         "sofka": "sofka",
-        "talosctl": "talosctl"
+        "talosctl": "talosctl",
+        "thurm": "thurm"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "thurm",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792133817,
+        "narHash": "sha256-LivT78KkZ18adR5daoXj2nlIOxuLw6B96nvW4FOl4d0=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "ec07af44be2e0ce4e1a17e00a97d44232607c1ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "sofka": {
@@ -186,6 +224,25 @@
       "original": {
         "owner": "nklmilojevic",
         "repo": "talosctl-flake",
+        "type": "github"
+      }
+    },
+    "thurm": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1792272739,
+        "narHash": "sha256-2r6EVfjX6YnVs3vxHTxBwAg91RoOutkiU3t3Qkuk0Uo=",
+        "owner": "nklmilojevic",
+        "repo": "thurm",
+        "rev": "11b86f14d769087dd16d4979a514f8e8b67947c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nklmilojevic",
+        "repo": "thurm",
         "type": "github"
       }
     }

@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sofka.url = "github:nklmilojevic/sofka";
+    thurm.url = "github:nklmilojevic/thurm";
   };
 
   nixConfig = {
@@ -28,6 +29,7 @@
       pi-flake,
       talosctl,
       sofka,
+      thurm,
     }:
     let
       inherit (nixpkgs) lib;
@@ -50,6 +52,7 @@
         let
           image = pkgs.callPackage ./image.nix {
             sofka = sofka.packages.${pkgs.stdenv.hostPlatform.system}.default;
+            thurm = thurm.packages.${pkgs.stdenv.hostPlatform.system}.thurm;
             rev = self.shortRev or self.dirtyShortRev or "dev";
           };
         in
