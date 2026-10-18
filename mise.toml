@@ -17,4 +17,4 @@ fd = "10.5.0"
 node = "24.22.0"
 pi = "1.3.0"
 "github:nklmilojevic/sofka" = { version = "0.31.11", matching = "unknown-linux-musl" }
-"github:nklmilojevic/thurm" = { version = "0.7.2", matching = "unknown-linux-musl" }
+"github:nklmilojevic/thurm" = { version = "tip", matching = "tip.c4542a8-603-" }

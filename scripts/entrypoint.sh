@@ -80,10 +80,6 @@ if [[ -n "${GH_TOKEN:-}" ]]; then
   gh auth setup-git --hostname github.com >/dev/null 2>&1 || true
 fi
 
-if [[ "${BASTION_AGENT_ENABLED:-true}" == "true" ]]; then
-  tmux new-session -d -s pi -c "${HOME}" pi-channel
-fi
-
 thurmd --daemonize
 if [[ "${BASTION_THURM_TAILSCALE:-false}" == "true" ]]; then
   tailscale_args=(--hostname "${BASTION_THURM_HOSTNAME:-bastion}")
@@ -91,6 +87,21 @@ if [[ "${BASTION_THURM_TAILSCALE:-false}" == "true" ]]; then
     tailscale_args+=(--auth-key-file "${THURM_TAILSCALE_AUTH_KEY_FILE}")
   fi
   thurm tailscale on "${tailscale_args[@]}" || echo "thurm: serving over Tailscale failed" >&2
+fi
+
+# pi runs in a thurm tab, so the app and the phone see it as an agent. A restored session
+# reruns that tab itself: the daemon answers once it has restored, and a restored tab may take
+# a moment to start pi-channel.
+if [[ "${BASTION_AGENT_ENABLED:-true}" == "true" ]]; then
+  if [[ "$(thurm list --json | jq '[.[] | select(.restored)] | length')" -gt 0 ]]; then
+    for _ in $(seq 20); do
+      pgrep -f /usr/local/bin/pi-channel >/dev/null && break
+      sleep 0.5
+    done
+  fi
+  if ! pgrep -f /usr/local/bin/pi-channel >/dev/null; then
+    thurm new-tab --cwd "${HOME}" pi-channel >/dev/null
+  fi
 fi
 
 exec /usr/sbin/sshd -D -e \
