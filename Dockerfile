@@ -30,8 +30,15 @@ RUN mise install --locked && \
 
 ### thurm-tailnet: not in thurm's Linux release yet, so build it at the version mise installs ###
 FROM mise AS tailnet
+# A tip build is pinned by its commit, which only the locked asset name carries.
 RUN version="$(mise current github:nklmilojevic/thurm)" && \
-	git clone --depth 1 --branch "v${version}" https://github.com/nklmilojevic/thurm.git /src
+	if [[ "${version}" == tip ]]; then \
+		ref="$(grep -oPm1 'thurm-[^/"]*-tip\.\K[0-9a-f]+' mise.lock)"; \
+	else \
+		ref="v${version}"; \
+	fi && \
+	git clone --filter=blob:none https://github.com/nklmilojevic/thurm.git /src && \
+	git -C /src checkout "${ref}"
 WORKDIR /src/tailnet
 RUN go_version="$(awk '$1 == "go" { print $2 }' go.mod)" && \
 	CGO_ENABLED=0 mise exec "go@${go_version}" -- \
@@ -43,7 +50,7 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
 		bash ca-certificates catatonit curl fish gawk git gzip less mosh ncurses-term \
-		openssh-server openssh-sftp-server tar tmux tzdata && \
+		openssh-server openssh-sftp-server procps tar tmux tzdata && \
 	rm -rf /var/lib/apt/lists/* && \
 	# Debian's config turns on PAM, which a non-root sshd cannot use; the entrypoint passes the rest.
 	echo "UsePAM no" >/etc/ssh/sshd_config && \
