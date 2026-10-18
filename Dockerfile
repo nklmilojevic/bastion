@@ -19,7 +19,7 @@ RUN mise trust
 FROM mise AS bins
 RUN mise install --locked && \
 	mkdir -p /out/bin /out/opt && \
-	for bin in kubectl flux kustomize helm just stern talosctl gh jq yq rg fd sofka thurm thurmd; do \
+	for bin in kubectl flux kustomize helm just stern talosctl gh jq yq rg fd sofka thurm thurmd thurm-tailnet; do \
 		install -m 0755 "$(mise which "${bin}")" /out/bin/; \
 	done && \
 	# pi ships addons beside its executable, and npm needs node's lib/: keep both trees whole.
@@ -27,22 +27,6 @@ RUN mise install --locked && \
 		cp -a "$(mise where "${tool}")" "/out/opt/${tool}"; \
 	done && \
 	ln -s "/opt/pi/$(realpath --relative-to "$(mise where pi)" "$(mise which pi)")" /out/bin/pi
-
-### thurm-tailnet: not in thurm's Linux release yet, so build it at the version mise installs ###
-FROM mise AS tailnet
-# A tip build is pinned by its commit, which only the locked asset name carries.
-RUN version="$(mise current github:nklmilojevic/thurm)" && \
-	if [[ "${version}" == tip ]]; then \
-		ref="$(grep -oPm1 'thurm-[^/"]*-tip\.\K[0-9a-f]+' mise.lock)"; \
-	else \
-		ref="v${version}"; \
-	fi && \
-	git clone --filter=blob:none https://github.com/nklmilojevic/thurm.git /src && \
-	git -C /src checkout "${ref}"
-WORKDIR /src/tailnet
-RUN go_version="$(awk '$1 == "go" { print $2 }' go.mod)" && \
-	CGO_ENABLED=0 mise exec "go@${go_version}" -- \
-		go build -trimpath -ldflags "-s -w" -o /out/thurm-tailnet ./cmd/thurm-tailnet
 
 FROM ${BASE_IMAGE}
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
@@ -61,7 +45,6 @@ RUN apt-get update && \
 
 COPY --from=bins /out/opt/ /opt/
 COPY --from=bins /out/bin/ /usr/local/bin/
-COPY --from=tailnet /out/thurm-tailnet /usr/local/bin/thurm-tailnet
 COPY --chmod=0755 scripts/entrypoint.sh /usr/local/bin/bastion-entrypoint
 COPY --chmod=0755 scripts/pi-channel.sh /usr/local/bin/pi-channel
 COPY --chmod=0755 scripts/mosh-server.sh /usr/local/bin/mosh-server
