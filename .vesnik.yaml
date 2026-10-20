@@ -1,0 +1,7 @@
+provider: claude
+model: claude-haiku-5-5
+
+style:
+  product: "SSH jump box and Claude Code Telegram agent for the home cluster"
+
+breaking_bumps_minor: true
