@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends ca-certificates curl git xz-utils && \
 	rm -rf /var/lib/apt/lists/*
-COPY --from=jdxcode/mise:2026.10.19@sha256:6bd2515bf27389f537921fc8c3e5a6579f15cf889a63a8432dc542670174e50a /usr/local/bin/mise /usr/local/bin/mise
+COPY --from=jdxcode/mise:2026.10.20@sha256:a3023a390ce9d79343741039d35a36aa41e4fe8198464bf8cc9ffd23ae081a24 /usr/local/bin/mise /usr/local/bin/mise
 ENV MISE_DATA_DIR=/opt/mise \
 	MISE_CACHE_DIR=/tmp/mise-cache \
 	MISE_YES=1
