@@ -2,19 +2,19 @@
 lockfile = true
 
 [tools]
-kubectl = "1.37.1"
-"aqua:fluxcd/flux2" = "2.9.6"
+kubectl = "1.37.2"
+"aqua:fluxcd/flux2" = "2.10.0"
 kustomize = "5.8.3"
 helm = "4.3.1"
 just = "1.59.0"
 stern = "1.35.0"
-talosctl = "1.14.4"
-gh = "2.103.2"
+talosctl = "1.14.5"
+gh = "2.103.3"
 jq = "1.8.2"
 yq = "4.54.1"
 ripgrep = "15.2.0"
 fd = "10.5.0"
-node = "24.22.1"
+node = "24.22.2"
 pi = "v1.4.0"
 "github:nklmilojevic/sofka" = { version = "v0.32.0", matching = "unknown-linux-musl" }
-"github:nklmilojevic/thurm" = { version = "v0.12.1", matching = "unknown-linux-musl" }
+"github:nklmilojevic/thurm" = { version = "v0.15.0", matching = "unknown-linux-musl" }
