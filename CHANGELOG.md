@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.8.1 - 2026-10-29
+
+This release fixes the container image and the `mise lock` command. Both work again without user action.
+
+### Fixes
+
+- The container image now installs `libatomic1`. Node.js 26 needs this library to start.
+- The `sofka` and `thurm` tools now apply to Linux only. This stops `mise lock` from failing on macOS.
+
+### Other changes
+
+- The container image now uses Node.js 26, which is an LTS release.
+
 ## v0.8.0 - 2026-10-22
 
 This release updates the `sofka`, `stern`, and `thurm` tools. Read the `stern` note before you upgrade, because one template change is required.
