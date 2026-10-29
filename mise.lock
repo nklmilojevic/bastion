@@ -9,19 +9,16 @@ specifiers = ["2.10.0"]
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-arm64"]
 checksum = "sha256:c3c435052e5e18156858bc73f26bcadb62821a6e30951b4b302beb4e65a532c2"
-checksum_source = "mise-versions"
 url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_arm64.tar.gz"
 url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609576"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-x64"]
 checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
-checksum_source = "mise-versions"
 url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
 url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
 
 [tools."aqua:fluxcd/flux2"."platforms.macos-arm64"]
 checksum = "sha256:339c5dba218e2b0a04a0841d1dace6c00d65736dc3286038463fa86754ff6c53"
-checksum_source = "mise-versions"
 url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_darwin_arm64.tar.gz"
 url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609572"
 
@@ -42,7 +39,6 @@ url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/530481615"
 
 [tools.fd."platforms.macos-arm64"]
 checksum = "sha256:b67e1836c468e42e411984b56e52fa7abec08c2bd22c867398e7cc134aac5e12"
-checksum_source = "mise-versions"
 url = "https://github.com/sharkdp/fd/releases/download/v10.5.0/fd-v10.5.0-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/530481346"
 
@@ -99,13 +95,11 @@ matching = "unknown-linux-musl"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-arm64"]
 checksum = "sha256:805e41018d219d47e0aa4c6c437cd61668388642d68b19413db6738591b5bb56"
-checksum_source = "mise-versions"
 url = "https://github.com/nklmilojevic/thurm/releases/download/v0.15.0/thurm-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/685557480"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-x64"]
 checksum = "sha256:80c3503feffbdf728086b81112a7773d424d34d47459cf75399d144c188a62f3"
-checksum_source = "mise-versions"
 url = "https://github.com/nklmilojevic/thurm/releases/download/v0.15.0/thurm-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/685557540"
 
@@ -166,7 +160,6 @@ url_api = "https://api.github.com/repos/casey/just/releases/assets/642949555"
 
 [tools.just."platforms.macos-arm64"]
 checksum = "sha256:6574cea774ed4cae12e24b6aa11857de33e80dab4667cf628fd5840df96a2a9d"
-checksum_source = "mise-versions"
 url = "https://github.com/casey/just/releases/download/1.59.0/just-1.59.0-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/casey/just/releases/assets/643129724"
 
@@ -204,7 +197,6 @@ url_api = "https://api.github.com/repos/kubernetes-sigs/kustomize/releases/asset
 
 [tools.kustomize."platforms.macos-arm64"]
 checksum = "sha256:4cbb08e209d8fff47cd60bfb6407daaf5ee699f9b9295849a1065024fac2d1ef"
-checksum_source = "mise-versions"
 url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.8.3/kustomize_v5.8.3_darwin_arm64.tar.gz"
 url_api = "https://api.github.com/repos/kubernetes-sigs/kustomize/releases/assets/621661327"
 
@@ -262,7 +254,6 @@ url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/47812
 
 [tools.ripgrep."platforms.macos-arm64"]
 checksum = "sha256:3750b2e93f37e0c692657da574d7019a101c0084da05a790c83fd335bad973e4"
-checksum_source = "mise-versions"
 url = "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/478118851"
 
