@@ -5,7 +5,7 @@ FROM ${BASE_IMAGE} AS mise
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 # hadolint ignore=DL3008
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends ca-certificates curl git xz-utils && \
+	apt-get install -y --no-install-recommends ca-certificates curl git libatomic1 xz-utils && \
 	rm -rf /var/lib/apt/lists/*
 COPY --from=jdxcode/mise:2026.10.22@sha256:efd2ddb8c93c9c5c10d723ac41757910e29a6d4bfaf4e8c444f99b802997e48c /usr/local/bin/mise /usr/local/bin/mise
 ENV MISE_DATA_DIR=/opt/mise \
@@ -33,7 +33,7 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 # hadolint ignore=DL3008
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
-		bash ca-certificates catatonit curl fish gawk git gzip less mosh ncurses-term \
+		bash ca-certificates catatonit curl fish gawk git gzip less libatomic1 mosh ncurses-term \
 		openssh-server openssh-sftp-server procps tar tmux tzdata && \
 	rm -rf /var/lib/apt/lists/* && \
 	# Debian's config turns on PAM, which a non-root sshd cannot use; the entrypoint passes the rest.
