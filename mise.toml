@@ -14,7 +14,7 @@ jq = "1.8.2"
 yq = "4.54.1"
 ripgrep = "15.2.0"
 fd = "10.5.0"
-node = "24.22.2"
+node = "26.13.0"
 pi = "v1.4.0"
 "github:nklmilojevic/sofka" = { version = "v0.32.0", matching = "unknown-linux-musl", os = ["linux"] }
 "github:nklmilojevic/thurm" = { version = "v0.15.0", matching = "unknown-linux-musl", os = ["linux"] }
