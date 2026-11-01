@@ -66,23 +66,23 @@ url_api = "https://api.github.com/repos/cli/cli/releases/assets/679195704"
 provenance = "github-attestations"
 
 [[tools."github:nklmilojevic/sofka"]]
-version = "0.33.0"
+version = "0.34.0"
 backend = "github:nklmilojevic/sofka"
-specifiers = ["v0.33.0"]
+specifiers = ["v0.34.0"]
 
 [tools."github:nklmilojevic/sofka".options]
 matching = "unknown-linux-musl"
 
 [tools."github:nklmilojevic/sofka"."platforms.linux-arm64"]
-checksum = "sha256:8cf7f30a023b7e801112df6aa033d94ec1060d1640a10b74cf5ec57322887f01"
-url = "https://github.com/nklmilojevic/sofka/releases/download/v0.33.0/sofka-v0.33.0-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/688019505"
+checksum = "sha256:0b2c9f7e7a4d82fcab4b26f3be5c8f1b5c48cbdf5a9b965ee0a00f0e24af6756"
+url = "https://github.com/nklmilojevic/sofka/releases/download/v0.34.0/sofka-v0.34.0-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/699465157"
 provenance = "github-attestations"
 
 [tools."github:nklmilojevic/sofka"."platforms.linux-x64"]
-checksum = "sha256:6a1840207cbd4f33afd47c85e4887bab5358a378b042cde685c4dc689abf8b09"
-url = "https://github.com/nklmilojevic/sofka/releases/download/v0.33.0/sofka-v0.33.0-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/688019566"
+checksum = "sha256:034a3f7f170921621613ec01d016967ff8f35b9c42e88c8af2095c1815a117ad"
+url = "https://github.com/nklmilojevic/sofka/releases/download/v0.34.0/sofka-v0.34.0-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/699465187"
 provenance = "github-attestations"
 
 [[tools."github:nklmilojevic/thurm"]]
