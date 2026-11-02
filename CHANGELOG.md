@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.2 - 2026-11-02
+
+This release updates the tools that bastion installs. It does not change how bastion works.
+
 ## v0.8.1 - 2026-10-29
 
 This release fixes the container image and the `mise lock` command. Both work again without user action.
