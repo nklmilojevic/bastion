@@ -86,24 +86,24 @@ url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/69946
 provenance = "github-attestations"
 
 [[tools."github:nklmilojevic/thurm"]]
-version = "0.16.0"
+version = "0.17.0"
 backend = "github:nklmilojevic/thurm"
-specifiers = ["v0.16.0"]
+specifiers = ["v0.17.0"]
 
 [tools."github:nklmilojevic/thurm".options]
 matching = "unknown-linux-musl"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-arm64"]
-checksum = "sha256:30de9b58f0335ce87d5986a28ef211a1b18e30f7695cc8f20bb2767af3fd484a"
+checksum = "sha256:7d4aa72d275b52dcf488410d560e844e341338a0773cf79965533f15d9a320ab"
 checksum_source = "mise-versions"
-url = "https://github.com/nklmilojevic/thurm/releases/download/v0.16.0/thurm-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/688412303"
+url = "https://github.com/nklmilojevic/thurm/releases/download/v0.17.0/thurm-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/701442630"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-x64"]
-checksum = "sha256:59de29fbdfdb67c613008aee99ff0e297d85e260c13d42c0ea8742d2d71bbadf"
+checksum = "sha256:953537821a00ccd7287851ee708b40247dc7bbdc8d0638ad317ee1c5a486e3bd"
 checksum_source = "mise-versions"
-url = "https://github.com/nklmilojevic/thurm/releases/download/v0.16.0/thurm-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/688412336"
+url = "https://github.com/nklmilojevic/thurm/releases/download/v0.17.0/thurm-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/701442651"
 
 [[tools.helm]]
 version = "4.3.1"
@@ -220,24 +220,27 @@ checksum = "sha256:d38bd5e5a2ddce6bbb5ce45e46e208337da4d51fffe611e567fd32073d643
 url = "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-arm64.tar.gz"
 
 [[tools.pi]]
-version = "v1.4.0"
+version = "v1.5.0"
 backend = "aqua:earendil-works/pi"
-specifiers = ["v1.4.0"]
+specifiers = ["v1.5.0"]
 
 [tools.pi."platforms.linux-arm64"]
-checksum = "sha256:fa5829c7ef83ffeaebba015715c8306220f89b2aa8a00154efbba98dd5440156"
-url = "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978804"
+checksum = "sha256:5d5711b48600756473682e86360b026b11abf7591e5d112eb411d4da2c100d9a"
+checksum_source = "mise-versions"
+url = "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/701404874"
 
 [tools.pi."platforms.linux-x64"]
-checksum = "sha256:f2e4e4329603223d03260cdb8bd5033dbdc1f73ba58ab8939db2e56546e115d2"
-url = "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978808"
+checksum = "sha256:df870ba0e344cb7b3358d8d8f19397b8b8d225a8669784736ad68a5c2169d53b"
+checksum_source = "mise-versions"
+url = "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/701404869"
 
 [tools.pi."platforms.macos-arm64"]
-checksum = "sha256:79d9979d76a2a5adb7c28e27e9b44629928ccd0dc9fbb6ae7217860bd5e8be5d"
-url = "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978807"
+checksum = "sha256:a9bf0d82d58d2a7d337f4ae4171b5fc9ebffe42509527a831364c4b65adf2cdf"
+checksum_source = "mise-versions"
+url = "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/701404873"
 
 [[tools.ripgrep]]
 version = "15.2.0"
