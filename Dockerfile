@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends ca-certificates curl git libatomic1 xz-utils && \
 	rm -rf /var/lib/apt/lists/*
-COPY --from=jdxcode/mise:2026.11.0@sha256:6e05da4113a812cc8ac72b21a38889d019fb0f97df6ce8075c0de98d1cf48cc4 /usr/local/bin/mise /usr/local/bin/mise
+COPY --from=jdxcode/mise:2026.11.1@sha256:0ae21598dabb18ae6e30da209c44ef92f5b8085986c1762f1259cb2ef0e0949f /usr/local/bin/mise /usr/local/bin/mise
 ENV MISE_DATA_DIR=/opt/mise \
 	MISE_CACHE_DIR=/tmp/mise-cache \
 	MISE_YES=1
