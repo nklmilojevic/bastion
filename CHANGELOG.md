@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.3 - 2026-11-07
+
+This release updates the tools and base image that bastion uses. It does not change how bastion works for you.
+
 ## v0.8.2 - 2026-11-02
 
 This release updates the tools that bastion installs. It does not change how bastion works.
