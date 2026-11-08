@@ -17,4 +17,4 @@ fd = "10.5.2"
 node = "26.13.0"
 pi = "v1.5.0"
 "github:nklmilojevic/sofka" = { version = "v0.34.0", matching = "unknown-linux-musl", os = ["linux"] }
-"github:nklmilojevic/thurm" = { version = "v0.19.1", matching = "unknown-linux-musl", os = ["linux"] }
+"github:nklmilojevic/thurm" = { version = "v0.19.2", matching = "unknown-linux-musl", os = ["linux"] }
