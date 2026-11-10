@@ -89,24 +89,24 @@ url_api = "https://api.github.com/repos/nklmilojevic/sofka/releases/assets/73285
 provenance = "github-attestations"
 
 [[tools."github:nklmilojevic/thurm"]]
-version = "0.19.3"
+version = "0.19.4"
 backend = "github:nklmilojevic/thurm"
-specifiers = ["v0.19.3"]
+specifiers = ["v0.19.4"]
 
 [tools."github:nklmilojevic/thurm".options]
 matching = "unknown-linux-musl"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-arm64"]
-checksum = "sha256:a484eae64641418f114b30e6c1ac75c8c2841345366ac63a3ec7b02841d7f2ca"
+checksum = "sha256:ceef2ed597095d6607c90bfbb95c34be3b46f0ff9af9612db21f73e486af3ebd"
 checksum_source = "mise-versions"
-url = "https://github.com/nklmilojevic/thurm/releases/download/v0.19.3/thurm-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/731653556"
+url = "https://github.com/nklmilojevic/thurm/releases/download/v0.19.4/thurm-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/733056076"
 
 [tools."github:nklmilojevic/thurm"."platforms.linux-x64"]
-checksum = "sha256:5949ed30f441a9da83757e6a928250367e94d60755eac3f1f0de9a8b9fbdda05"
+checksum = "sha256:767a721181059702224fb6cafd9905751d687f29fac83f65f77389b7aab6402a"
 checksum_source = "mise-versions"
-url = "https://github.com/nklmilojevic/thurm/releases/download/v0.19.3/thurm-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/731653598"
+url = "https://github.com/nklmilojevic/thurm/releases/download/v0.19.4/thurm-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nklmilojevic/thurm/releases/assets/733056152"
 
 [[tools.helm]]
 version = "4.3.1"
