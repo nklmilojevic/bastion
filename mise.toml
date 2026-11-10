@@ -16,5 +16,5 @@ ripgrep = "15.2.0"
 fd = "10.5.2"
 node = "26.13.0"
 pi = "v1.5.2"
-"github:nklmilojevic/sofka" = { version = "v0.35.0", matching = "unknown-linux-musl", os = ["linux"] }
+"github:nklmilojevic/sofka" = { version = "v0.35.1", matching = "unknown-linux-musl", os = ["linux"] }
 "github:nklmilojevic/thurm" = { version = "v0.19.3", matching = "unknown-linux-musl", os = ["linux"] }
