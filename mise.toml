@@ -5,16 +5,16 @@ lockfile = true
 kubectl = "1.37.2"
 "aqua:fluxcd/flux2" = "2.10.0"
 kustomize = "5.8.3"
-helm = "4.3.1"
+helm = "4.3.2"
 just = "1.59.0"
 stern = "1.35.0"
-talosctl = "1.14.5"
-gh = "2.103.3"
+talosctl = "1.14.6"
+gh = "2.104.0"
 jq = "1.8.2"
 yq = "4.54.3"
 ripgrep = "15.2.0"
 fd = "10.5.2"
-node = "26.13.0"
+node = "26.13.1"
 pi = "v1.5.2"
 "github:nklmilojevic/sofka" = { version = "v0.35.1", matching = "unknown-linux-musl", os = ["linux"] }
-"github:nklmilojevic/thurm" = { version = "v0.19.4", matching = "unknown-linux-musl", os = ["linux"] }
+"github:nklmilojevic/thurm" = { version = "v0.20.1", matching = "unknown-linux-musl", os = ["linux"] }
