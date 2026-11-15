@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
-  "timezone": "Europe/Belgrade",
-  "labels": ["dependencies"],
+  "extends": ["local>nklmilojevic/renovate-config", "helpers:pinGitHubActionDigests"],
   "nix": {
     "enabled": true
   },
@@ -13,15 +11,23 @@
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "groupName": "github actions"
+      "groupName": "github actions",
+      "separateMinorPatch": false
     },
     {
       "matchManagers": ["nix"],
-      "groupName": "nix dependencies"
+      "groupName": "nix dependencies",
+      "separateMinorPatch": false
     },
     {
       "matchManagers": ["mise"],
-      "groupName": "mise tools"
+      "groupName": "mise tools",
+      "separateMinorPatch": false
+    },
+    {
+      "description": "image.yaml pushes the bastion image to GHCR with packages: write: Action updates are reviewed, never merged automatically.",
+      "matchFileNames": [".github/workflows/**"],
+      "automerge": false
     }
   ]
 }
