@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.8.4 - 2026-11-16
+
+This release updates the tools that bastion bundles. Bastion commands, config fields and defaults do not change.
+
+### Other changes
+
+- Updates the bundled `sofka` tool to v0.37.0. The logs view shows a horizontal scrollbar for long lines.
+- Updates the `mise` container image to 2026.11.9. Tool installs and task runs use the new version.
+
 ## v0.8.3 - 2026-11-07
 
 This release updates the tools and base image that bastion uses. It does not change how bastion works for you.
