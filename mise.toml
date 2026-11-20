@@ -3,7 +3,7 @@ lockfile = true
 
 [tools]
 kubectl = "1.37.2"
-"aqua:fluxcd/flux2" = "2.10.0"
+"aqua:fluxcd/flux2" = "2.10.1"
 kustomize = "5.8.3"
 helm = "4.3.2"
 just = "1.59.0"
@@ -15,6 +15,6 @@ yq = "4.54.3"
 ripgrep = "15.2.0"
 fd = "10.5.2"
 node = "26.13.1"
-pi = "v1.5.2"
+pi = "v1.6.0"
 "github:nklmilojevic/sofka" = { version = "v0.37.0", matching = "unknown-linux-musl", os = ["linux"] }
 "github:nklmilojevic/thurm" = { version = "v0.25.0", matching = "unknown-linux-musl", os = ["linux"] }
