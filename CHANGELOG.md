@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.9.0 - 2026-11-24
+
+This release updates the tools in bastion. Users get new features and fixes from these tool updates.
+
+### New features
+- Update `gh` to 2.105.0. The preview `gh event listen` command waits for pull request events instead of polling GitHub.
+- Update the Kubernetes terminal UI to 0.38.0 and add a searchable API resource browser. The release removes the Intel Mac build, so those users must build it from source.
+- Update the terminal app to 0.24.0. Commands can run in a minimized card, and panes can be minimized or restored.
+- Update the terminal app to 0.25.0. Users can copy files between this Mac and a remote host.
+- Update the terminal app to 0.27.0. Pi and Antigravity sessions get automatic titles.
+- Update `ripgrep` to 16.0.0. It adds the `-G` flag for negated globs and the `RIPGREP_THREADS` variable.
+- Update `mise` to 2026.11.10. It adds the `enable_backends` allowlist for tool backends.
+- Update `mise` to 2026.11.11. It adds the `if_pool` task option for task locks.
+- Update `mise` to 2026.11.12. It adds `mise audit` and `mise upgrade --vulnerable`.
+- Update `mise` to 2026.11.14. It adds `cache.sandbox`, which limits a cached task to its sources and outputs.
+
+### Fixes
+- Update `flux`, the terminal app, and `pi` to newer versions. The `flux` update fixes credential caching, so changed annotations apply on the next reconcile.
+- Update `talosctl` to 1.14.7. The release fixes how Talos serves logind D-Bus broker clients.
+
 ## v0.8.4 - 2026-11-16
 
 This release updates the tools that bastion bundles. Bastion commands, config fields and defaults do not change.
